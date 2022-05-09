@@ -205,9 +205,9 @@ jobs:
         echo "修改 5G 无线名称"
         sed -i 's/DEF_WLAN_5G_SSID	BOARD_PID "_5G_%s"/DEF_WLAN_5G_SSID	"'$wlan_5g_ssid'"/g' $default_file
         echo "修改 2.4GHz WIFI 密码"
-        sed -i 's/DEF_WLAN_2G_PSK		"1234567890"/DEF_WLAN_2G_PSK		"'$wlan_2g_psk'"/g' $default_file
+        sed -i 's/DEF_WLAN_2G_PSK		"25103515"/DEF_WLAN_2G_PSK		"'$wlan_2g_psk'"/g' $default_file
         echo "修改 5GHz WIFI 密码"
-        sed -i 's/DEF_WLAN_5G_PSK		"1234567890"/DEF_WLAN_5G_PSK		"'$wlan_5g_psk'"/g' $default_file
+        sed -i 's/DEF_WLAN_5G_PSK		"25103515"/DEF_WLAN_5G_PSK		"'$wlan_5g_psk'"/g' $default_file
         #########################################################################################
     - name: Build firmware
       run: |
