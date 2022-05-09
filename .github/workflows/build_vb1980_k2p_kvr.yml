@@ -6,7 +6,7 @@ on:
       firmwarever:
         description: 'firmware''s version'
         required: true
-        default: $(date +"%Y%m%d")
+        default: '20220509'
       busyboxver:
         type: choice
         description: 'busybox''s version'
@@ -197,6 +197,17 @@ jobs:
         #echo "自定义项=y" >> .config
         sed -i "s/FIRMWARE_BUILDS_REV=.*/FIRMWARE_BUILDS_REV=${{ github.event.inputs.firmwarever }}/g" ./versions.inc
         echo '更新版本号时间'
+        wlan_2g_ssid="oOo"                              # 2G 无线名称
+        wlan_5g_ssid="oOo"                           # 5G 无线名称
+        default_file="./user/shared/defaults.h"             # 默认配置文件
+        echo "修改 2G 无线名称"
+        sed -i 's/DEF_WLAN_2G_SSID	BOARD_PID "_%s"/DEF_WLAN_2G_SSID	"'$wlan_2g_ssid'"/g' $default_file
+        echo "修改 5G 无线名称"
+        sed -i 's/DEF_WLAN_5G_SSID	BOARD_PID "_5G_%s"/DEF_WLAN_5G_SSID	"'$wlan_5g_ssid'"/g' $default_file
+        echo "修改 2.4GHz WIFI 密码"
+        sed -i 's/DEF_WLAN_2G_PSK		"1234567890"/DEF_WLAN_2G_PSK		"'$wlan_2g_psk'"/g' $default_file
+        echo "修改 5GHz WIFI 密码"
+        sed -i 's/DEF_WLAN_5G_PSK		"1234567890"/DEF_WLAN_5G_PSK		"'$wlan_5g_psk'"/g' $default_file
         #########################################################################################
     - name: Build firmware
       run: |
